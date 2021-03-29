@@ -41,30 +41,29 @@ namespace TicTacToe
                 player = 2;
             else if (array[2] == array[4] && array[4] == array[6] && array[6] == 'O')
                 player = 2;
-                
-
-                    return player;
-
+            return player;
+        }
+        static void Display(char[] array)
+        {
+            Console.WriteLine($@" 
+  __________________
+ |                  |
+ |   {array[0]}  |  {array[1]}  |  {array[2]}  |  
+ | _____|_____|_____|
+ |      |     |     |
+ |   {array[3]}  |  {array[4]}  |  {array[5]}  |    
+ | _____|_____|_____|
+ |      |     |     |
+ |   {array[6]}  |  {array[7]}  |  {array[8]}  |   
+ |__________________|");
         }
         static void Main(string[] args)
         {
-
             char rematch = 'j';
-
             do
             {
-                char[] layout = {'1', '2', '3','4', '5', '6','7', '8', '9'};
-                Console.WriteLine($@" 
-  __________________
- |                  |
- |   {layout[0]}  |  {layout[1]}  |  {layout[2]}  |  
- | _____|_____|_____|
- |      |     |     |
- |   {layout[3]}  |  {layout[4]}  |  {layout[5]}  |    
- | _____|_____|_____|
- |      |     |     |
- |   {layout[6]}  |  {layout[7]}  |  {layout[8]}  |   
- |__________________|");
+                char[] layout = { '1', '2', '3', '4', '5', '6', '7', '8', '9' };
+                Display(layout);
 
 
                 int i = 1;
@@ -74,46 +73,26 @@ namespace TicTacToe
                     int player = 1;
                     char sign = 'X';
 
-                    if (i % 2 != 0)
-                    {
-                        player = 1;
-                        sign = 'X';
-                    }
-                    else
+                    if (i % 2 == 0)
                     {
                         player = 2;
                         sign = 'O';
-
                     }
 
                     Console.WriteLine($"Player {player} move");
-                    char position = char.Parse(Console.ReadLine());
-                    int posX = -1;
-                    for (int j = 0; j < layout.Length; j++)
-                    {
-                        if (layout[j] == position)
-                            posX = j;
-                    }
-                    
-                    layout[posX] = sign;
+                    int pos = int.Parse(Console.ReadLine()) - 1;
+                    if (layout[pos] != 'X' && layout[pos] != 'O' )
+                        layout[pos] = sign;
 
                     Console.Clear();
-                    Console.WriteLine($@" 
-  __________________
- |                  |
- |   {layout[0]}  |  {layout[1]}  |  {layout[2]}  |  
- | _____|_____|_____|
- |      |     |     |
- |   {layout[3]}  |  {layout[4]}  |  {layout[5]}  |    
- | _____|_____|_____|
- |      |     |     |
- |   {layout[6]}  |  {layout[7]}  |  {layout[8]}  |   
- |__________________|");
+                    Display(layout);
 
                     if (Winner(layout) != 0)
                     {
+                        Console.ForegroundColor = ConsoleColor.Green;
                         Console.WriteLine($"Player {Winner(layout)} won");
                         end = false;
+                        Console.ResetColor();
                     }
                     else if (Winner(layout) == 0 && i == 9)
                         Console.WriteLine("Draw");
@@ -124,7 +103,6 @@ namespace TicTacToe
                 rematch = char.Parse(Console.ReadLine().ToLower());
                 Console.Clear();
             } while (rematch == 'y');
-
         }
     }
 }
