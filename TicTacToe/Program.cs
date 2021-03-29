@@ -65,7 +65,6 @@ namespace TicTacToe
                 char[] layout = { '1', '2', '3', '4', '5', '6', '7', '8', '9' };
                 Display(layout);
 
-
                 int i = 1;
                 bool end = true;
                 while (i != 10 && end)
@@ -81,6 +80,11 @@ namespace TicTacToe
 
                     Console.WriteLine($"Player {player} move");
                     int pos = int.Parse(Console.ReadLine()) - 1;
+                    while (layout[pos] == 'X' || layout[pos] == 'O')
+                    {
+                        Console.WriteLine("Position taken \nRetry");
+                        pos = int.Parse(Console.ReadLine()) - 1;
+                    }
                     if (layout[pos] != 'X' && layout[pos] != 'O' )
                         layout[pos] = sign;
 
